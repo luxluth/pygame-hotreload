@@ -1,4 +1,4 @@
-# pygame_hotreload
+# pygame-hotreload
 
 [![PyPI - Version](https://img.shields.io/pypi/v/pygame-hotreload.svg)](https://pypi.org/project/pygame-hotreload)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pygame-hotreload.svg)](https://pypi.org/project/pygame-hotreload)
@@ -12,7 +12,7 @@
 
 ## Installation
 
-```console
+```zsh
 pip install pygame-hotreload
 ```
 

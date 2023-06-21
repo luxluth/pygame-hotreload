@@ -7,151 +7,41 @@ name = "pygame-hotreload"
 dynamic = ["version"]
 description = 'A hot reload enhancer for pygame developement'
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 license = "MIT"
-keywords = []
+keywords = ["pygame", "gamedev", "hotreload"]
 authors = [
   { name = "luxluth", email = "delphin.blehoussi93@gmail.com" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+    "markdown-it-py==3.0.0 ; python_version >= '3.8'",
+    "mdurl==0.1.2 ; python_version >= '3.7'",
+    "pygame==2.4.0",
+    "pygments==2.15.1 ; python_version >= '3.7'",
+    "rich==13.4.2",
+]
 
 [project.urls]
-Documentation = "https://github.com/unknown/pygame-hotreload#readme"
-Issues = "https://github.com/unknown/pygame-hotreload/issues"
-Source = "https://github.com/unknown/pygame-hotreload"
+Documentation = "https://github.com/luxluth/pygame-hotreload#readme"
+Issues = "https://github.com/luxluth/pygame-hotreload/issues"
+Source = "https://github.com/luxluth/pygame-hotreload"
 
 [tool.hatch.version]
 path = "src/pygame_hotreload/__about__.py"
 
-[tool.hatch.envs.default]
-dependencies = [
-  "coverage[toml]>=6.5",
-  "pytest",
-]
-[tool.hatch.envs.default.scripts]
-test = "pytest {args:tests}"
-test-cov = "coverage run -m pytest {args:tests}"
-cov-report = [
-  "- coverage combine",
-  "coverage report",
-]
-cov = [
-  "test-cov",
-  "cov-report",
-]
+[tool.hatch.dependencies]
+path = "requirements.txt"
+
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+python = ["3.9", "3.10", "3.11"]
 
-[tool.hatch.envs.lint]
-detached = true
-dependencies = [
-  "black>=23.1.0",
-  "mypy>=1.0.0",
-  "ruff>=0.0.243",
-]
-[tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:src/pygame_hotreload tests}"
-style = [
-  "ruff {args:.}",
-  "black --check --diff {args:.}",
-]
-fmt = [
-  "black {args:.}",
-  "ruff --fix {args:.}",
-  "style",
-]
-all = [
-  "style",
-  "typing",
-]
-
-[tool.black]
-target-version = ["py37"]
-line-length = 120
-skip-string-normalization = true
-
-[tool.ruff]
-target-version = "py37"
-line-length = 120
-select = [
-  "A",
-  "ARG",
-  "B",
-  "C",
-  "DTZ",
-  "E",
-  "EM",
-  "F",
-  "FBT",
-  "I",
-  "ICN",
-  "ISC",
-  "N",
-  "PLC",
-  "PLE",
-  "PLR",
-  "PLW",
-  "Q",
-  "RUF",
-  "S",
-  "T",
-  "TID",
-  "UP",
-  "W",
-  "YTT",
-]
-ignore = [
-  # Allow non-abstract empty methods in abstract base classes
-  "B027",
-  # Allow boolean positional values in function calls, like `dict.get(... True)`
-  "FBT003",
-  # Ignore checks for possible passwords
-  "S105", "S106", "S107",
-  # Ignore complexity
-  "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
-]
-unfixable = [
-  # Don't touch unused imports
-  "F401",
-]
-
-[tool.ruff.isort]
-known-first-party = ["pygame_hotreload"]
-
-[tool.ruff.flake8-tidy-imports]
-ban-relative-imports = "all"
-
-[tool.ruff.per-file-ignores]
-# Tests can use magic values, assertions, and relative imports
-"tests/**/*" = ["PLR2004", "S101", "TID252"]
-
-[tool.coverage.run]
-source_pkgs = ["pygame_hotreload", "tests"]
-branch = true
-parallel = true
-omit = [
-  "src/pygame_hotreload/__about__.py",
-]
-
-[tool.coverage.paths]
-pygame_hotreload = ["src/pygame_hotreload", "*/pygame-hotreload/src/pygame_hotreload"]
-tests = ["tests", "*/pygame-hotreload/tests"]
-
-[tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
