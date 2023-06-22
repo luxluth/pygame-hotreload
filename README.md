@@ -69,10 +69,12 @@ There is where you should initialize your global variables.
 # loop-end-hotreload
 ```
 This is where the module will look for the game loop.
+On changes within these comments the screen surface is updated.
 
 ## Example
 
 ### game.py
+
 ```python
 # game.py
 
