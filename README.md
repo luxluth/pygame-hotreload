@@ -15,6 +15,10 @@
     - [`init-start-hotreload`](#init-start-hotreload)
     - [`loop-start-hotreload`](#loop-start-hotreload)
   - [Example](#example)
+    - [game.py](#gamepy)
+    - [gen.py](#genpy)
+  - [Contributing](#contributing)
+    - [Development](#development)
   - [License](#license)
 
 ## Installation
@@ -27,7 +31,7 @@ pip install pygame-hotreload
 
 The `pygame-hotreload` module is a simple hot-reload module for pygame. It is partialy parse the main python file provided.
 
-It looks for this comment in the main file:
+It looks for these comments in the main file:
 
 ### `imports-start-hotreload`
 
@@ -68,6 +72,7 @@ This is where the module will look for the game loop.
 
 ## Example
 
+### game.py
 ```python
 # game.py
 
@@ -110,9 +115,9 @@ def loop():
     global player_pos_2
     screen.fill("black")
     pygame.draw.rect(screen, "purple", 
-                     pygame.Rect(player_pos.x, player_pos.y, 100, 100))
+                    pygame.Rect(player_pos.x, player_pos.y, 100, 100))
     pygame.draw.rect(screen, "purple", 
-                     pygame.Rect(player_pos_2.x, player_pos_2.y, 100, 100), 1)
+                    pygame.Rect(player_pos_2.x, player_pos_2.y, 100, 100), 1)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_z] or keys[pygame.K_UP]:
@@ -138,6 +143,59 @@ hotreload = HotReload(
 
 hotreload.run()
 ```
+
+### gen.py
+
+```python
+import pygame
+global dt
+global player_pos
+global player_pos_2
+def init():
+    global dt
+    global player_pos
+    global player_pos_2
+    dt = 0
+    player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+    player_pos_2 = pygame.Vector2(screen.get_width() // 3, screen.get_height() // 3)
+def loop():
+    global dt
+    global player_pos
+    global player_pos_2
+    screen.fill("black")
+    pygame.draw.rect(screen, "purple", 
+                    pygame.Rect(player_pos.x, player_pos.y, 100, 100))
+    pygame.draw.rect(screen, "purple", 
+                    pygame.Rect(player_pos_2.x, player_pos_2.y, 100, 100), 1)
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_z] or keys[pygame.K_UP]:
+        player_pos.y -= 300 * dt
+    if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+        player_pos.y += 300 * dt
+    if keys[pygame.K_q] or keys[pygame.K_LEFT]:
+        player_pos.x -= 300 * dt
+    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+        player_pos.x += 300 * dt
+
+    dt = clock.tick(60) / 1000
+```
+
+## Contributing
+
+Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.
+
+### Development
+
+To set up `pygame-hotreload` for local development:
+  - Fork the `pygame-hotreload` repository.
+  - Clone your fork locally
+  - Use `pipenv shell` to enter the virtual environment
+  - Use `pipenv install` to install all dependencies
+  - Make a change, and push your local branch to your fork
+  - Make a pull request
+  - You can build your own version of the project with `hatch version beta && hatch build --wheel` and install it with `pipenv install dist/pygame_hotreload-<VERSION>-py3-none-any.whl`
+
 
 ## License
 
