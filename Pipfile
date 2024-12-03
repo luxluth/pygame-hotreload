@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 rich = "*"
-pygame = "*"
 
 [dev-packages]
+pygame = "*"
 pygame-hotreload = {path = "./dist/pygame_hotreload-0.0.32-py3-none-any.whl"}
 hatch = "*"
 
