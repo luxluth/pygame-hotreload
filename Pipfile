@@ -8,8 +8,7 @@ rich = "*"
 
 [dev-packages]
 pygame = "*"
-pygame-hotreload = {path = "./dist/pygame_hotreload-0.0.32-py3-none-any.whl"}
 hatch = "*"
 
 [requires]
-python_version = "3.11"
+python_version = "3.13"
